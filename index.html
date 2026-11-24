@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123b72">
+<title>Krishna Computer</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">KC</div><div><h1>Krishna Computer</h1><p>Soyat Kalan · Shop Assistant</p></div></div>
+  <button class="small ghost" id="backupBtn">डेटा बैकअप</button>
+</header>
+<main>
+  <section class="welcome">
+    <div><span class="eyebrow">आपका डिजिटल दुकान सहायक</span><h2>नमस्ते! आज दुकान का काम शुरू करें।</h2><p>ग्राहक, हिसाब, प्रिंट, PDF और फोटो — सब एक जगह।</p></div>
+    <div class="date" id="today"></div>
+  </section>
+
+  <section class="stats">
+    <article class="stat"><span>आज की कमाई</span><strong id="todayIncome">₹0</strong></article>
+    <article class="stat"><span>आज का खर्च</span><strong id="todayExpense">₹0</strong></article>
+    <article class="stat"><span>ग्राहक</span><strong id="customerCount">0</strong></article>
+    <article class="stat"><span>बाकी उधारी</span><strong id="dueTotal">₹0</strong></article>
+  </section>
+
+  <nav class="tabs" aria-label="मुख्य मेन्यू">
+    <button class="tab active" data-tab="customers">ग्राहक</button>
+    <button class="tab" data-tab="hisab">दुकान का हिसाब</button>
+    <button class="tab" data-tab="print">प्रिंट / स्कैन</button>
+    <button class="tab" data-tab="pdf">PDF टूल</button>
+    <button class="tab" data-tab="photo">फोटो स्टूडियो</button>
+    <button class="tab" data-tab="whatsapp">WhatsApp</button>
+    <button class="tab" data-tab="ai">AI सहायक</button>
+  </nav>
+
+  <section class="panel active" id="customers">
+    <div class="section-head"><div><h3>ग्राहक मैनेजमेंट</h3><p>ग्राहक का रिकॉर्ड सेव करें और खोजें।</p></div></div>
+    <form id="customerForm" class="form-grid">
+      <label>ग्राहक का नाम<input id="cName" required placeholder="पूरा नाम"></label>
+      <label>मोबाइल नंबर<input id="cPhone" inputmode="numeric" maxlength="10" placeholder="10 अंकों का नंबर"></label>
+      <label class="wide">पता / नोट<input id="cNote" placeholder="गाँव, काम या अन्य जानकारी"></label>
+      <button class="primary" type="submit">+ ग्राहक जोड़ें</button>
+    </form>
+    <label class="search">ग्राहक खोजें<input id="customerSearch" placeholder="नाम या मोबाइल नंबर"></label>
+    <div id="customerList" class="list"></div>
+  </section>
+
+  <section class="panel" id="hisab">
+    <div class="section-head"><div><h3>दुकान का हिसाब</h3><p>कमाई, खर्च और उधारी दर्ज करें।</p></div></div>
+    <form id="ledgerForm" class="form-grid">
+      <label>लेन-देन का प्रकार<select id="lType"><option value="income">कमाई</option><option value="expense">खर्च</option><option value="due">उधारी दी</option><option value="paid">उधारी वसूली</option></select></label>
+      <label>रकम (₹)<input id="lAmount" type="number" min="1" step="0.01" required placeholder="जैसे 150"></label>
+      <label>विवरण<input id="lDesc" placeholder="प्रिंट, फोटो, स्टेशनरी आदि"></label>
+      <label>तारीख<input id="lDate" type="date" required></label>
+      <button class="primary" type="submit">हिसाब सेव करें</button>
+    </form>
+    <div class="section-head compact"><h4>हाल के लेन-देन</h4><button class="small" id="exportCsv">CSV डाउनलोड</button></div>
+    <div id="ledgerList" class="list"></div>
+  </section>
+
+  <section class="panel" id="print">
+    <div class="section-head"><div><h3>प्रिंट और स्कैन</h3><p>दस्तावेज खोलें, प्रिंट करें या स्कैन की फाइल जोड़ें।</p></div></div>
+    <div class="tool-card">
+      <h4>प्रिंट मैनेजर</h4><p>फाइल चुनें और प्रिंट दबाएं। PDF या फोटो फाइल ब्राउज़र में खुलेगी।</p>
+      <input type="file" id="printFile" accept="image/*,.pdf">
+      <button class="primary" id="printBtn">प्रिंट करें</button>
+      <p class="hint">नोट: PDF/फोटो प्रिंट के लिए डिवाइस में प्रिंटर सेट होना चाहिए। Windows में HP प्रिंटर को डिफॉल्ट प्रिंटर चुनें।</p>
+    </div>
+    <div class="tool-card">
+      <h4>स्कैन फाइल जोड़ें</h4><p>HP Scan ऐप/स्कैनर से स्कैन करके बनी फाइल यहां चुनें।</p>
+      <input type="file" id="scanFile" accept="image/*,.pdf">
+      <div id="scanStatus" class="hint">अभी कोई फाइल नहीं चुनी गई।</div>
+      <p class="hint">सीधे USB स्कैनर नियंत्रण ब्राउज़र/मोबाइल पर उपलब्ध नहीं होता। Windows में HP Scan से स्कैन करके फाइल यहां जोड़ें।</p>
+    </div>
+  </section>
+
+  <section class="panel" id="pdf">
+    <div class="section-head"><div><h3>PDF टूल</h3><p>फोटो या दस्तावेज से PDF बनाने का आसान तरीका।</p></div></div>
+    <div class="tool-card">
+      <label>फोटो / दस्तावेज चुनें<input type="file" id="pdfFiles" accept="image/*,.pdf" multiple></label>
+      <div id="pdfFileNames" class="hint">कोई फाइल नहीं चुनी गई।</div>
+      <button class="primary" id="pdfPrint">PDF बनाएं / सेव करें</button>
+      <p class="hint">फाइलें चुनने के बाद प्रिंट डायलॉग में “Save as PDF” चुनें। मौजूदा PDF को जोड़ने/पेज संपादन के लिए अगला संस्करण बनाया जा सकता है।</p>
+    </div>
+  </section>
+
+  <section class="panel" id="photo">
+    <div class="section-head"><div><h3>फोटो स्टूडियो</h3><p>फोटो देखें और प्रिंट के लिए तैयार करें।</p></div></div>
+    <div class="tool-card">
+      <label>फोटो चुनें<input type="file" id="photoFile" accept="image/*"></label>
+      <div class="photo-stage"><img id="photoPreview" alt="चुनी गई फोटो का प्रीव्यू" hidden><span id="photoPlaceholder">फोटो का प्रीव्यू यहां दिखेगा</span></div>
+      <div class="form-grid">
+        <label>प्रिंट आकार<select id="photoSize"><option value="35x45">पासपोर्ट (35 × 45 mm)</option><option value="25x35">छोटी फोटो (25 × 35 mm)</option><option value="custom">सामान्य फोटो</option></select></label>
+        <label>कॉपी की संख्या<input id="photoCopies" type="number" min="1" max="40" value="8"></label>
+      </div>
+      <button class="primary" id="photoPrint">फोटो शीट प्रिंट करें</button>
+      <p class="hint">यह बेसिक फोटो प्रिंट लेआउट है; बैकग्राउंड हटाना, फेस रीटच और ऑटो क्रॉप अभी शामिल नहीं हैं।</p>
+    </div>
+  </section>
+
+  <section class="panel" id="whatsapp">
+    <div class="section-head"><div><h3>WhatsApp सिस्टम</h3><p>ग्राहक को संदेश भेजें।</p></div></div>
+    <form id="waForm" class="form-grid">
+      <label>मोबाइल नंबर<input id="waPhone" inputmode="numeric" maxlength="10" placeholder="10 अंकों का नंबर" required></label>
+      <label class="wide">संदेश<textarea id="waMessage" rows="4">नमस्ते! कृष्णा कम्प्यूटर, सोयत कलां से संपर्क करने के लिए धन्यवाद।</textarea></label>
+      <button class="primary" type="submit">WhatsApp पर भेजें</button>
+    </form>
+    <p class="hint">WhatsApp खुलेगा; संदेश भेजने से पहले आप उसे जांच सकते हैं।</p>
+  </section>
+
+  <section class="panel" id="ai">
+    <div class="section-head"><div><h3>AI सहायक</h3><p>दुकान के काम के लिए शुरुआती सहायता।</p></div></div>
+    <div class="chat" id="chat"><div class="bubble bot">नमस्ते! मैं कृष्णा कम्प्यूटर का सहायक हूं। अभी मैं सामान्य दुकान-संबंधी मदद और इस ऐप की सुविधाएं बता सकता हूं।</div></div>
+    <form id="aiForm" class="chat-form"><input id="aiQuestion" placeholder="अपना सवाल लिखें..." required><button class="primary" type="submit">पूछें</button></form>
+    <p class="hint">वास्तविक Claude/AI जवाब जोड़ने के लिए सुरक्षित सर्वर और API कनेक्शन चाहिए; API key को इस ऐप में सीधे रखना सुरक्षित नहीं है।</p>
+  </section>
+
+  <footer>Krishna Computer · आपका डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है। नियमित बैकअप लें।</footer>
+</main>
+<div id="toast" class="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>

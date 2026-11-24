@@ -1,0 +1,10 @@
+{
+  "name": "Krishna Computer",
+  "short_name": "Krishna Computer",
+  "description": "Krishna Computer Soyat Kalan shop assistant",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f6fb",
+  "theme_color": "#123b72",
+  "lang": "hi"
+}
