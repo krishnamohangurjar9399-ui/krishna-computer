@@ -11,7 +11,11 @@
 <body>
 <header class="topbar">
   <div class="brand"><div class="logo">KC</div><div><h1>Krishna Computer</h1><p>Soyat Kalan · Shop Assistant</p></div></div>
-  <button class="small ghost" id="backupBtn">डेटा बैकअप</button>
+  <div class="header-actions">
+    <button class="small ghost" id="backupBtn">बैकअप डाउनलोड</button>
+    <button class="small ghost" id="restoreBtn" type="button">बैकअप वापस लाएं</button>
+    <input id="restoreFile" type="file" accept="application/json,.json" hidden>
+  </div>
 </header>
 <main>
   <section class="welcome">
@@ -73,6 +77,7 @@
       <h4>स्कैन फाइल जोड़ें</h4><p>HP Scan ऐप/स्कैनर से स्कैन करके बनी फाइल यहां चुनें।</p>
       <input type="file" id="scanFile" accept="image/*,.pdf">
       <div id="scanStatus" class="hint">अभी कोई फाइल नहीं चुनी गई।</div>
+      <button class="small" id="downloadScan" type="button" disabled>चुनी हुई स्कैन फाइल डाउनलोड करें</button>
       <p class="hint">सीधे USB स्कैनर नियंत्रण ब्राउज़र/मोबाइल पर उपलब्ध नहीं होता। Windows में HP Scan से स्कैन करके फाइल यहां जोड़ें।</p>
     </div>
   </section>
@@ -118,7 +123,7 @@
     <p class="hint">वास्तविक Claude/AI जवाब जोड़ने के लिए सुरक्षित सर्वर और API कनेक्शन चाहिए; API key को इस ऐप में सीधे रखना सुरक्षित नहीं है।</p>
   </section>
 
-  <footer>Krishna Computer · आपका डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है। नियमित बैकअप लें।</footer>
+  <footer>Krishna Computer · आपका डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है। नियमित बैकअप लें। यह शुरुआती स्थानीय संस्करण है; संवेदनशील ग्राहक डेटा सार्वजनिक डिवाइस पर न रखें।</footer>
 </main>
 <div id="toast" class="toast" role="status"></div>
 <script src="app.js"></script>

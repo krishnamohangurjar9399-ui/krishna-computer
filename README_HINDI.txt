@@ -1,10 +1,35 @@
-KRISHNA COMPUTER PWA UPDATE v2
+KRISHNA COMPUTER — UPDATED STARTER VERSION 3
 
-इस अपडेट में ये फाइलें हैं:
-- manifest.webmanifest (अपडेटेड PWA manifest)
-- sw.js (अपडेटेड service worker)
-- icon-192.png
-- icon-512.png
+इस ZIP में आपकी मौजूदा वेबसाइट की फाइलें अपडेट की गई हैं।
 
-GitHub Repository के मुख्य पेज में ये चारों फाइलें अपलोड करके पुरानी manifest.webmanifest और sw.js को replace करें।
-फिर वेबसाइट को Chrome में दोबारा खोलें। कुछ मिनट बाद Chrome menu में Install app का विकल्प आ सकता है।
+मौजूदा सुविधाएं:
+- ग्राहक जोड़ना, खोजना और हटाना
+- कमाई, खर्च और उधारी का हिसाब
+- CSV हिसाब डाउनलोड
+- JSON बैकअप डाउनलोड और बैकअप वापस लाना
+- चुनी हुई प्रिंट फाइल खोलना
+- HP Scan से बनी स्कैन फाइल चुनना और डाउनलोड करना
+- फोटो की बेसिक पासपोर्ट/छोटी फोटो शीट प्रिंट
+- फोटो से PDF बनाने के लिए ब्राउज़र Print → Save as PDF
+- WhatsApp संदेश खोलना
+- सीमित ऑफलाइन सहायता वाला शुरुआती सहायक
+- PWA और ऑफलाइन कैश
+
+महत्वपूर्ण सीमाएं:
+1. यह वेबसाइट-बेस्ड PWA है। Windows में HP प्रिंटर को सिस्टम में इंस्टॉल/डिफॉल्ट करना होगा।
+2. USB HP स्कैनर को वेबसाइट सीधे नियंत्रित नहीं करती। Windows में HP Scan से स्कैन करें, फिर फाइल यहां चुनें।
+3. AI टैब अभी असली Claude/ChatGPT API से जुड़ा नहीं है। API key को सार्वजनिक GitHub कोड में न डालें।
+4. फोटो बैकग्राउंड हटाना, फेस रीटच, उन्नत PDF मर्ज/एडिट, WhatsApp ऑटोमैसेजिंग अभी शामिल नहीं हैं।
+5. डेटा ब्राउज़र के इसी डिवाइस में रहता है। अलग मोबाइल/कंप्यूटर में अपने-आप सिंक नहीं होता। नियमित बैकअप लें।
+6. Repository सार्वजनिक है; ग्राहक का निजी डेटा GitHub पर अपलोड न करें।
+
+GitHub पर अपडेट:
+- Repository खोलें → Add file → Upload files
+- ZIP को पहले फोन/कंप्यूटर में Extract करें।
+- Extract किए हुए फोल्डर के अंदर की फाइलें (index.html, app.js, style.css आदि) Repository के root में अपलोड करें।
+- पुराने समान नाम वाली फाइलों को replace करें और Commit changes करें।
+- GitHub Pages कुछ मिनट में अपडेट हो सकता है।
+- मोबाइल Chrome में पुरानी cached साइट दिखे तो साइट को बंद करके दोबारा खोलें या site data/cache refresh करें।
+
+वेबसाइट:
+https://krishnamohangurjar9399-ui.github.io/krishna-computer/
