@@ -1,4 +1,4 @@
-const CACHE="krishna-computer-v5";
+const CACHE="krishna-computer-v6";
 const ASSETS=["./","./index.html","./style.css","./app.js","./manifest.webmanifest","./icon-192.png","./icon-512.png"];
 self.addEventListener("install",event=>{event.waitUntil((async()=>{const cache=await caches.open(CACHE);await Promise.all(ASSETS.map(async url=>{try{await cache.add(url)}catch(error){console.warn("Cache skip:",url)}}));await self.skipWaiting()})())});
 self.addEventListener("activate",event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(key=>key.startsWith("krishna-computer-")&&key!==CACHE).map(key=>caches.delete(key)));await self.clients.claim()})())});

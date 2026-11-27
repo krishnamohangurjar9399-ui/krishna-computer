@@ -52,3 +52,55 @@ $("aiForm").onsubmit=e=>{e.preventDefault();const q=$("aiQuestion").value.trim()
 function addBubble(s,who){const d=document.createElement("div");d.className="bubble "+who;d.textContent=s;$("chat").appendChild(d);$("chat").scrollTop=$("chat").scrollHeight;}
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
 render();
+
+
+// Customer self-registration and document storage (local browser only).
+const REG_DB="kc_registration_db", REG_STORE="registrations";
+function openRegDB(){
+ return new Promise((resolve,reject)=>{
+  if(!("indexedDB" in window)) return reject(new Error("इस ब्राउज़र में IndexedDB उपलब्ध नहीं है"));
+  const req=indexedDB.open(REG_DB,1);
+  req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(REG_STORE))db.createObjectStore(REG_STORE,{keyPath:"id"});};
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+ });
+}
+async function saveRegistration(record){
+ const db=await openRegDB();
+ return new Promise((resolve,reject)=>{const tx=db.transaction(REG_STORE,"readwrite");tx.objectStore(REG_STORE).put(record);tx.oncomplete=()=>{db.close();resolve();};tx.onerror=()=>{db.close();reject(tx.error);};});
+}
+async function getRegistrations(){
+ const db=await openRegDB();
+ return new Promise((resolve,reject)=>{const req=db.transaction(REG_STORE,"readonly").objectStore(REG_STORE).getAll();req.onsuccess=()=>{db.close();resolve((req.result||[]).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)));};req.onerror=()=>{db.close();reject(req.error);};});
+}
+$("selfRegForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const file=$("regDoc").files[0],phone=$("regPhone").value.replace(/\D/g,"");
+ if(phone.length!==10)return toast("मोबाइल नंबर 10 अंकों का होना चाहिए");
+ if(!file)return toast("दस्तावेज़ फाइल चुनें");
+ if(file.size>8*1024*1024)return toast("फाइल 8 MB से छोटी रखें");
+ const allowed=["application/pdf","image/jpeg","image/png"];
+ if(!allowed.includes(file.type))return toast("केवल PDF, JPG या PNG फाइल चुनें");
+ const id="KC-"+new Date().toISOString().slice(0,10).replaceAll("-","")+"-"+Math.random().toString(36).slice(2,7).toUpperCase();
+ const record={id,name:$("regName").value.trim(),guardian:$("regGuardian").value.trim(),dob:$("regDob").value,phone,address:$("regAddress").value.trim(),docType:$("regDocType").value,fileName:file.name,fileType:file.type,fileBlob:file,createdAt:new Date().toISOString()};
+ try{
+  await saveRegistration(record);
+  $("regStatus").textContent=`रजिस्ट्रेशन सफल! आपका नंबर: ${id}`;
+  e.target.reset();await renderRegistrations();toast("रजिस्ट्रेशन और दस्तावेज़ सेव हो गए");
+ }catch(err){console.error(err);toast("सेव नहीं हुआ। डिवाइस में जगह/ब्राउज़र सपोर्ट जांचें");}
+});
+async function renderRegistrations(){
+ const host=$("registrationList");if(!host)return;
+ try{
+  const rows=await getRegistrations();
+  host.innerHTML=rows.length?rows.map(r=>`<article class="item"><div><strong>${esc(r.name)} · ${esc(r.id)}</strong><small>${esc(r.phone)} · ${esc(r.docType)} · ${esc(new Date(r.createdAt).toLocaleString("hi-IN"))}<br>${esc(r.fileName)}</small></div><div class="actions"><button class="small" type="button" onclick="downloadRegDoc('${esc(r.id)}')">दस्तावेज़ डाउनलोड</button><button class="danger" type="button" onclick="deleteReg('${esc(r.id)}')">हटाएं</button></div></article>`).join(""):'<div class="empty">अभी कोई रजिस्ट्रेशन नहीं है।</div>';
+ }catch(err){host.innerHTML='<div class="empty">इस ब्राउज़र में दस्तावेज़ स्टोरेज उपलब्ध नहीं है।</div>';}
+}
+window.downloadRegDoc=async id=>{
+ try{const r=(await getRegistrations()).find(x=>x.id===id);if(!r)return toast("रिकॉर्ड नहीं मिला");const url=URL.createObjectURL(r.fileBlob);const a=document.createElement("a");a.href=url;a.download=r.fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);}catch(e){toast("दस्तावेज़ डाउनलोड नहीं हुआ");}
+};
+window.deleteReg=async id=>{
+ if(!confirm("यह रजिस्ट्रेशन और अपलोड दस्तावेज़ हमेशा के लिए हटाएं?"))return;
+ try{const db=await openRegDB();await new Promise((resolve,reject)=>{const tx=db.transaction(REG_STORE,"readwrite");tx.objectStore(REG_STORE).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});db.close();await renderRegistrations();toast("रिकॉर्ड हटा दिया गया");}catch(e){toast("रिकॉर्ड नहीं हट सका");}
+};
+$("refreshRegs").addEventListener("click",renderRegistrations);
+renderRegistrations();

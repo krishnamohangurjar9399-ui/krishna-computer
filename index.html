@@ -34,6 +34,8 @@
 
   <nav class="tabs" aria-label="मुख्य मेन्यू">
     <button class="tab active" data-tab="customers">ग्राहक</button>
+    <button class="tab" data-tab="portal">ग्राहक रजिस्ट्रेशन</button>
+    <button class="tab" data-tab="adminDocs">दस्तावेज़ मैनेजर</button>
     <button class="tab" data-tab="hisab">दुकान का हिसाब</button>
     <button class="tab" data-tab="print">प्रिंट / स्कैन</button>
     <button class="tab" data-tab="pdf">PDF टूल</button>
@@ -53,6 +55,30 @@
     <label class="search">ग्राहक खोजें<input id="customerSearch" placeholder="नाम या मोबाइल नंबर"></label>
     <div class="section-head compact"><h4>ग्राहक सूची</h4><button class="small" id="exportCustomers" type="button">ग्राहक CSV डाउनलोड</button></div>
     <div id="customerList" class="list"></div>
+  </section>
+
+
+
+  <section class="panel" id="portal">
+    <div class="section-head"><div><h3>ग्राहक स्वयं रजिस्ट्रेशन एवं दस्तावेज़ अपलोड</h3><p>ग्राहक इस डिवाइस/ब्राउज़र पर अपनी जानकारी भरकर दस्तावेज़ जोड़ सकते हैं।</p></div></div>
+    <form id="selfRegForm" class="form-grid">
+      <label>पूरा नाम<input id="regName" required maxlength="100" placeholder="ग्राहक का पूरा नाम"></label>
+      <label>पिता / पति का नाम<input id="regGuardian" maxlength="100" placeholder="पिता या पति का नाम"></label>
+      <label>जन्मतिथि<input id="regDob" type="date"></label>
+      <label>मोबाइल नंबर<input id="regPhone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" required placeholder="10 अंकों का मोबाइल नंबर"></label>
+      <label class="wide">पूरा पता<textarea id="regAddress" rows="2" maxlength="500" placeholder="गाँव, तहसील, जिला"></textarea></label>
+      <label>दस्तावेज़ का प्रकार<select id="regDocType"><option>आधार कार्ड</option><option>PAN कार्ड</option><option>वोटर ID</option><option>मार्कशीट</option><option>समग्र ID</option><option>अन्य</option></select></label>
+      <label>दस्तावेज़ फाइल (PDF/JPG/PNG)<input id="regDoc" type="file" accept=".pdf,image/jpeg,image/png" required></label>
+      <p class="hint wide">केवल आवश्यक दस्तावेज़ अपलोड करें। आधार नंबर/दस्तावेज़ सार्वजनिक रूप से साझा न करें। इस संस्करण में फाइलें इसी ब्राउज़र के IndexedDB में रहती हैं।</p>
+      <button class="primary" type="submit">रजिस्ट्रेशन जमा करें</button>
+    </form>
+    <div id="regStatus" class="hint" role="status">फॉर्म भरकर रजिस्ट्रेशन जमा करें।</div>
+  </section>
+
+  <section class="panel" id="adminDocs">
+    <div class="section-head"><div><h3>दस्तावेज़ मैनेजर</h3><p>इस ब्राउज़र में जमा किए गए रजिस्ट्रेशन देखें और फाइल डाउनलोड करें।</p></div><button class="small" id="refreshRegs" type="button">रिफ्रेश</button></div>
+    <p class="hint">महत्वपूर्ण: यह स्थानीय डेमो/ऑफलाइन मॉड्यूल है, सुरक्षित एडमिन लॉगिन नहीं। इंटरनेट पर ग्राहकों से अलग-अलग मोबाइल पर डेटा मंगाने के लिए सर्वर, डेटाबेस, लॉगिन और HTTPS सेटअप जरूरी है।</p>
+    <div id="registrationList" class="list"><div class="empty">रजिस्ट्रेशन लोड हो रहे हैं…</div></div>
   </section>
 
   <section class="panel" id="hisab">
@@ -126,7 +152,7 @@
     <p class="hint">वास्तविक Claude/AI जवाब जोड़ने के लिए सुरक्षित सर्वर और API कनेक्शन चाहिए; API key को इस ऐप में सीधे रखना सुरक्षित नहीं है।</p>
   </section>
 
-  <footer>Krishna Computer · आपका डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है। नियमित बैकअप लें। Version 5 · डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है; नियमित बैकअप लें। संवेदनशील ग्राहक डेटा सार्वजनिक डिवाइस पर न रखें।</footer>
+  <footer>Krishna Computer · आपका डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है। नियमित बैकअप लें। Version 6 · ग्राहक रजिस्ट्रेशन डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है; नियमित बैकअप लें। संवेदनशील ग्राहक डेटा सार्वजनिक डिवाइस पर न रखें।</footer>
 </main>
 <div id="toast" class="toast" role="status"></div>
 <script src="app.js"></script>
