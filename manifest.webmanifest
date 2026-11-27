@@ -1,7 +1,7 @@
 {
   "name": "Krishna Computer",
   "short_name": "Krishna Computer",
-  "description": "Krishna Computer Soyat Kalan shop assistant",
+  "description": "Krishna Computer Soyat Kalan — customer, shop accounts, print and photo tools",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

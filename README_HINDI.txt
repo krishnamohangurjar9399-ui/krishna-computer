@@ -1,4 +1,4 @@
-KRISHNA COMPUTER — VERSION 4 (Windows 10 + Android PWA)
+KRISHNA COMPUTER — VERSION 5 (Windows 10 + Android PWA)
 
 इस संस्करण में उपलब्ध सुविधाएं:
 1. ग्राहक मैनेजमेंट: ग्राहक जोड़ना, खोजना, WhatsApp संदेश खोलना और हटाना।
@@ -11,7 +11,8 @@ KRISHNA COMPUTER — VERSION 4 (Windows 10 + Android PWA)
 8. फोटो स्टूडियो: 35×45 mm पासपोर्ट, 25×35 mm छोटी फोटो और कॉपी शीट प्रिंट।
 9. WhatsApp: नंबर और संदेश के साथ WhatsApp चैट खोलना।
 10. ऑफलाइन सहायक: ऐप के फीचर संबंधी सामान्य निर्देश।
-11. PWA: HTTPS वेबसाइट को Android Chrome/Windows Edge से इंस्टॉल किया जा सकता है; सीमित ऑफलाइन कैश।
+11. ग्राहक सूची CSV डाउनलोड: ग्राहक रिकॉर्ड को Excel में खोलने योग्य CSV में डाउनलोड करें।
+12. PWA: HTTPS वेबसाइट को Android Chrome/Windows Edge से इंस्टॉल किया जा सकता है; अपडेटेड ऑफलाइन कैश (ऐप फाइलें)।
 
 महत्वपूर्ण सीमाएं और सुरक्षा:
 - यह वेबसाइट/PWA है, Windows का पूर्ण native software नहीं।
@@ -27,7 +28,7 @@ KRISHNA COMPUTER — VERSION 4 (Windows 10 + Android PWA)
 GitHub Pages पर अपडेट करने का तरीका:
 1. ZIP को Extract करें।
 2. Extract किए हुए krishna-computer-main फोल्डर के अंदर की सभी फाइलें Repository के root में Upload files करें।
-3. समान नाम वाली पुरानी फाइलیں Replace करें और Commit changes करें।
+3. समान नाम वाली पुरानी फाइलें Replace करें और Commit changes करें।
 4. कुछ मिनट बाद वेबसाइट खोलें। पुराना cache दिखे तो साइट बंद करके दोबारा खोलें या browser site data refresh करें।
 
 Android Install:
@@ -36,3 +37,13 @@ Windows Install:
 Microsoft Edge में HTTPS वेबसाइट खोलें → Apps → Install this site as an app (यदि विकल्प उपलब्ध हो)।
 
 वेबसाइट: https://krishnamohangurjar9399-ui.github.io/krishna-computer/
+
+
+VERSION 5 सुधार:
+- ग्राहक CSV निर्यात जोड़ा गया।
+- मोबाइल नंबर और रकम की जांच बेहतर की गई।
+- लोकल स्टोरेज विफल होने पर उपयोगकर्ता को सूचना।
+- बैकअप में ऐप पहचान और संस्करण जांच।
+- Service Worker कैश अपडेट और ऑफलाइन नेविगेशन fallback बेहतर।
+
+ध्यान दें: वास्तविक AI API, PDF merge/OCR, बैकग्राउंड हटाना, HP स्कैनर का सीधा USB नियंत्रण और अलग-अलग डिवाइस में डेटा सिंक इस संस्करण में शामिल नहीं हैं।

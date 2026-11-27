@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#123b72">
+<meta name="description" content="Krishna Computer Soyat Kalan shop assistant">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>Krishna Computer</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="style.css">
@@ -49,6 +51,7 @@
       <button class="primary" type="submit">+ ग्राहक जोड़ें</button>
     </form>
     <label class="search">ग्राहक खोजें<input id="customerSearch" placeholder="नाम या मोबाइल नंबर"></label>
+    <div class="section-head compact"><h4>ग्राहक सूची</h4><button class="small" id="exportCustomers" type="button">ग्राहक CSV डाउनलोड</button></div>
     <div id="customerList" class="list"></div>
   </section>
 
@@ -123,7 +126,7 @@
     <p class="hint">वास्तविक Claude/AI जवाब जोड़ने के लिए सुरक्षित सर्वर और API कनेक्शन चाहिए; API key को इस ऐप में सीधे रखना सुरक्षित नहीं है।</p>
   </section>
 
-  <footer>Krishna Computer · आपका डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है। नियमित बैकअप लें। यह शुरुआती स्थानीय संस्करण है; संवेदनशील ग्राहक डेटा सार्वजनिक डिवाइस पर न रखें।</footer>
+  <footer>Krishna Computer · आपका डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है। नियमित बैकअप लें। Version 5 · डेटा इसी डिवाइस/ब्राउज़र में सेव रहता है; नियमित बैकअप लें। संवेदनशील ग्राहक डेटा सार्वजनिक डिवाइस पर न रखें।</footer>
 </main>
 <div id="toast" class="toast" role="status"></div>
 <script src="app.js"></script>
